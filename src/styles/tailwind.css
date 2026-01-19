@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Core Colors */
+    --color-background: #FFFFFF; /* white */
+    --color-foreground: #111111; /* near-black for contrast */
+    --color-border: #E0E0E0; /* gray-300 */
+    --color-input: #FFFFFF; /* white */
+    --color-ring: #002147; /* navy */
+
+    /* Card Colors */
+    --color-card: #FFFFFF; /* white */
+    --color-card-foreground: #111111; /* text */
+
+    /* Popover Colors */
+    --color-popover: #FFFFFF; /* white */
+    --color-popover-foreground: #111111; /* text */
+
+    /* Muted Colors */
+    --color-muted: #F5F5F5; /* gray-100 */
+    --color-muted-foreground: #444444; /* gray-700 */
+
+    /* Primary Colors (Navy) */
+    --color-primary: #002147; /* navy */
+    --color-primary-foreground: #FFFFFF; /* white */
+
+    /* Secondary Colors (Green) */
+    --color-secondary: #138808; /* green */
+    --color-secondary-foreground: #FFFFFF; /* white */
+
+    /* Accent Colors (Saffron) */
+    --color-accent: #FF9933; /* saffron */
+    --color-accent-foreground: #FFFFFF; /* white */
+
+    /* Success Colors */
+    --color-success: #2E7D32; /* green-700 */
+    --color-success-foreground: #FFFFFF; /* white */
+
+    /* Warning Colors */
+    --color-warning: #F57C00; /* orange-600 */
+    --color-warning-foreground: #FFFFFF; /* white */
+
+    /* Error/Destructive Colors */
+    --color-error: #C62828; /* red-700 */
+    --color-error-foreground: #FFFFFF; /* white */
+    --color-destructive: #C62828; /* red-700 */
+    --color-destructive-foreground: #FFFFFF; /* white */
+  }
+
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  .high-contrast {
+    --color-background: #FFFFFF;
+    --color-foreground: #000000;
+    --color-border: #000000;
+    --color-card: #FFFFFF;
+    --color-card-foreground: #000000;
+    --color-popover: #FFFFFF;
+    --color-popover-foreground: #000000;
+    --color-muted: #FFFFFF;
+    --color-muted-foreground: #000000;
+    --color-primary: #000000;
+    --color-primary-foreground: #FFFFFF;
+    --color-secondary: #000000;
+    --color-secondary-foreground: #FFFFFF;
+    --color-accent: #000000;
+    --color-accent-foreground: #FFFFFF;
+  }
+}
+
+@layer utilities {
+  .text-shadow-sm {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .elevation-1 {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .elevation-2 {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .elevation-3 {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+  
+  .transition-smooth {
+    transition: all 200ms ease-out;
+  }
+  
+  .transition-layout {
+    transition: all 400ms ease-out;
+  }
+}

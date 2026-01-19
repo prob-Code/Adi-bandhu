@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>/</loc></url>
+  <url><loc>/multi-role-dashboard</loc></url>
+  <url><loc>/interactive-web-gis-map</loc></url>
+  <url><loc>/public-map-viewer</loc></url>
+  <url><loc>/claim-verification</loc></url>
+  <url><loc>/claim-upload-interface</loc></url>
+  <url><loc>/committee-review</loc></url>
+</urlset>
