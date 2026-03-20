@@ -116,3 +116,13 @@ Build the application for production:
 npm run build
 ```
 
+when we go through the app 
+<img width="2868" height="1435" alt="image" src="https://github.com/user-attachments/assets/beea64a7-fc99-4607-a135-a561e8117021" />
+<img width="2861" height="1382" alt="image" src="https://github.com/user-attachments/assets/ec02210c-569a-4f98-a907-2ea3c6da7d05" />
+<img width="2867" height="1631" alt="image" src="https://github.com/user-attachments/assets/8d755ac8-ec04-488c-b7c1-1ccd5e4186b4" />
+<img width="2879" height="1630" alt="image" src="https://github.com/user-attachments/assets/02c463ca-209f-4f42-9746-ddb76d502cc1" />
+<img width="2878" height="1635" alt="image" src="https://github.com/user-attachments/assets/e47daab9-ca5f-4944-be86-0299361f155d" />
+
+
+
+
