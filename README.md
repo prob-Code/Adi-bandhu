@@ -36,61 +36,69 @@ A modern React-based project utilizing the latest frontend technologies and tool
    ```
 
 ## 📁 Project Structure
-
 src/
-├── components/           # Reusable UI components
-│   ├── ui/              # Basic UI components (buttons, inputs, etc.)
-│   ├── layout/          # Layout components (header, footer, sidebar)
-│   └── shared/          # Shared components used across features
-├── context/             # React context providers
-│   ├── AuthContext.jsx  # Authentication state
-│   └── UiContext.jsx    # UI state (theme, modals, etc.)
-├── hooks/               # Custom React hooks
-├── pages/               # Page components
-│   ├── auth/            # Authentication pages
+├── components/                  # Reusable UI components
+│   ├── ui/                      # Base UI elements
+│   │   ├── Button.jsx
+│   │   ├── Input.jsx
+│   │   └── Modal.jsx
+│   ├── layout/                  # App-level layout wrappers
+│   │   ├── Header.jsx
+│   │   ├── Footer.jsx
+│   │   └── Sidebar.jsx
+│   └── shared/                  # Cross-feature shared components
+│       ├── LoadingSpinner.jsx
+│       └── ErrorBoundary.jsx
+│
+├── context/                     # React context providers
+│   ├── AuthContext.jsx          # Auth state (user, token, login/logout)
+│   └── UiContext.jsx            # UI state (theme, modals, toasts)
+│
+├── hooks/                       # Custom React hooks
+│   ├── useAuth.js               # Consume AuthContext
+│   ├── useDebounce.js
+│   └── useFetch.js
+│
+├── pages/                       # Feature-based page components
+│   ├── auth/                    # Authentication flow
 │   │   ├── Login.jsx
 │   │   └── Signup.jsx
-│   ├── claim-verification/  # Claim verification feature
+│   │
+│   ├── claim-verification/      # Claim verification feature
 │   │   ├── components/
 │   │   │   └── VerificationMapView.jsx
-│   │   └── index.jsx
-│   ├── multi-role-dashboard/ # Dashboard components
+│   │   └── index.jsx            # Feature entry point
+│   │
+│   ├── multi-role-dashboard/    # Dashboard feature
 │   │   ├── components/
 │   │   │   └── RecentActivityFeed.jsx
-│   │   └── index.jsx
-│   └── ...              # Other feature pages
-├── redux/               # Redux store configuration
-│   ├── slices/          # Redux slices
-│   ├── store.js         # Redux store
-│   └── api.js           # API service configuration
-├── services/            # API services
-├── styles/              # Global styles
-│   ├── tailwind.css     # Tailwind directives
-│   └── index.css        # Custom styles
-├── utils/               # Utility functions
-├── App.jsx              # Root component
-├── index.jsx            # Entry point
-└── Routes.jsx           # Application routing
-
-## 🧩 Adding Routes
-
-To add new routes to the application, update the `Routes.jsx` file:
-
-```jsx
-import { useRoutes } from "react-router-dom";
-import HomePage from "pages/HomePage";
-import AboutPage from "pages/AboutPage";
-
-const ProjectRoutes = () => {
-  let element = useRoutes([
-    { path: "/", element: <HomePage /> },
-    { path: "/about", element: <AboutPage /> },
-    // Add more routes as needed
-  ]);
-
-  return element;
-};
-```
+│   │   └── index.jsx            # Feature entry point
+│   │
+│   └── ...                      # Other feature pages (same pattern)
+│
+├── redux/                       # Global state management
+│   ├── slices/                  # Redux Toolkit slices
+│   │   ├── authSlice.js
+│   │   └── uiSlice.js
+│   ├── store.js                 # Redux store configuration
+│   └── api.js                   # RTK Query / Axios API service
+│
+├── services/                    # External API call functions
+│   ├── authService.js
+│   └── claimService.js
+│
+├── styles/                      # Global styles
+│   ├── tailwind.css             # Tailwind base directives
+│   └── index.css                # Custom global CSS overrides
+│
+├── utils/                       # Pure utility/helper functions
+│   ├── formatDate.js
+│   ├── validators.js
+│   └── constants.js
+│
+├── App.jsx                      # Root component, context providers
+├── index.jsx                    # React DOM entry point
+└── Routes.jsx                   # App-level route definitions
 
 ## 🎨 Styling
 
