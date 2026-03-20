@@ -99,7 +99,6 @@ src/
 ├── App.jsx                      # Root component, context providers
 ├── index.jsx                    # React DOM entry point
 └── Routes.jsx                   # App-level route definitions
-
 ## 🎨 Styling
 
 This project uses Tailwind CSS for styling. The configuration includes:
