@@ -1,53 +1,79 @@
 const http = require('http');
+const { verifyPattas } = require('./pattasVerification');
 
 const DEFAULT_PORT = 4000;
 
-function requestHandler(req, res) {
-  if (req.url === '/health' && req.method === 'GET') {
-    const body = JSON.stringify({
-      status: 'ok',
-      service: 'fra-atlas-backend',
-      timestamp: new Date().toISOString(),
-    });
-
-    res.writeHead(200, {
-      'Content-Type': 'application/json',
-      'Content-Length': Buffer.byteLength(body),
-    });
-    res.end(body);
-    return;
-  }
-
-
-  if (req.url === '/automation/status' && req.method === 'GET') {
-    const body = JSON.stringify({
-      status: 'ok',
-      automation: true,
-      checks: ['backend-health', 'frontend-preview', 'critical-routes'],
-      timestamp: new Date().toISOString(),
-    });
-
-    res.writeHead(200, {
-      'Content-Type': 'application/json',
-      'Content-Length': Buffer.byteLength(body),
-    });
-    res.end(body);
-    return;
-  }
-  const body = JSON.stringify({
-    error: 'Not Found',
-    path: req.url,
-  });
-
-  res.writeHead(404, {
+function sendJson(res, statusCode, payload) {
+  const body = JSON.stringify(payload);
+  res.writeHead(statusCode, {
     'Content-Type': 'application/json',
     'Content-Length': Buffer.byteLength(body),
   });
   res.end(body);
 }
 
+function readJsonBody(req) {
+  return new Promise((resolve, reject) => {
+    let data = '';
+    req.on('data', (chunk) => {
+      data += chunk;
+      if (data.length > 1_000_000) {
+        reject(new Error('Payload too large'));
+      }
+    });
+    req.on('end', () => {
+      if (!data) return resolve({});
+      try {
+        resolve(JSON.parse(data));
+      } catch {
+        reject(new Error('Invalid JSON body'));
+      }
+    });
+    req.on('error', reject);
+  });
+}
+
+async function requestHandler(req, res) {
+  if (req.url === '/health' && req.method === 'GET') {
+    return sendJson(res, 200, {
+      status: 'ok',
+      service: 'fra-atlas-backend',
+      timestamp: new Date().toISOString(),
+    });
+  }
+
+  if (req.url === '/automation/status' && req.method === 'GET') {
+    return sendJson(res, 200, {
+      status: 'ok',
+      automation: true,
+      checks: ['backend-health', 'frontend-preview', 'critical-routes'],
+      timestamp: new Date().toISOString(),
+    });
+  }
+
+  if (req.url === '/api/pattas/verify' && req.method === 'POST') {
+    try {
+      const payload = await readJsonBody(req);
+      const result = verifyPattas(payload);
+      if (!result.ok) return sendJson(res, 400, result);
+      return sendJson(res, 200, result);
+    } catch (error) {
+      return sendJson(res, 400, { ok: false, error: error.message });
+    }
+  }
+
+  return sendJson(res, 404, {
+    error: 'Not Found',
+    path: req.url,
+  });
+}
+
 function createServer() {
-  return http.createServer(requestHandler);
+  return http.createServer((req, res) => {
+    requestHandler(req, res).catch((error) => {
+      sendJson(res, 500, { error: 'Internal Server Error', message: error.message });
+    });
+  });
 }
 
 function startServer(port = DEFAULT_PORT) {
@@ -68,4 +94,5 @@ module.exports = {
   createServer,
   startServer,
   requestHandler,
+  readJsonBody,
 };

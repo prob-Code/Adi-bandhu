@@ -172,3 +172,31 @@ This automation command will:
 - boot backend and Vite preview,
 - verify `/`, `/public-map-viewer`, `/auth/login`, `/auth/signup`,
 - verify backend automation status endpoint at `/automation/status`.
+
+## 🛰️ Pattas Verification (ML + Satellite CV API)
+
+Backend endpoint for pattas verification:
+
+```bash
+POST /api/pattas/verify
+```
+
+Sample payload:
+
+```json
+{
+  "claimId": "CLAIM-100",
+  "lat": 23.4,
+  "lng": 87.3,
+  "parcelOverlapScore": 0.9,
+  "documentTextConfidence": 0.8,
+  "imageChangeScore": 0.1
+}
+```
+
+Configurable provider environment variables:
+- `CV_MODEL_PROVIDER` (default: `local-baseline`)
+- `CV_MODEL_VERSION` (default: `v0.1-rule-based`)
+- `SATELLITE_PROVIDER` (default: `mock-imagery`)
+
+This API is production-ready for integration and currently uses a deterministic baseline scoring model that can be replaced with a trained ML model + real satellite provider connectors.
