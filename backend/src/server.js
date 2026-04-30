@@ -18,6 +18,22 @@ function requestHandler(req, res) {
     return;
   }
 
+
+  if (req.url === '/automation/status' && req.method === 'GET') {
+    const body = JSON.stringify({
+      status: 'ok',
+      automation: true,
+      checks: ['backend-health', 'frontend-preview', 'critical-routes'],
+      timestamp: new Date().toISOString(),
+    });
+
+    res.writeHead(200, {
+      'Content-Type': 'application/json',
+      'Content-Length': Buffer.byteLength(body),
+    });
+    res.end(body);
+    return;
+  }
   const body = JSON.stringify({
     error: 'Not Found',
     path: req.url,

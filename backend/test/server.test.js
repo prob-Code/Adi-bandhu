@@ -36,6 +36,24 @@ test('GET /health returns 200 and metadata', async () => {
   }
 });
 
+test('GET /automation/status returns automation metadata', async () => {
+  const server = createServer();
+  await new Promise((resolve) => server.listen(0, resolve));
+
+  try {
+    const { port } = server.address();
+    const response = await get('/automation/status', port);
+    assert.equal(response.statusCode, 200);
+
+    const body = JSON.parse(response.body);
+    assert.equal(body.status, 'ok');
+    assert.equal(body.automation, true);
+    assert.ok(Array.isArray(body.checks));
+  } finally {
+    await new Promise((resolve, reject) => server.close((err) => (err ? reject(err) : resolve())));
+  }
+});
+
 test('unknown route returns 404', async () => {
   const server = createServer();
   await new Promise((resolve) => server.listen(0, resolve));
