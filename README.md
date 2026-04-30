@@ -133,3 +133,27 @@ when we go through the app
 
 
 
+
+## 🔌 Backend (Node HTTP)
+
+A lightweight backend is available under `backend/`.
+
+### Run backend
+
+```bash
+npm run backend:start
+```
+
+Default port: `4000` (override with `BACKEND_PORT`).
+
+### Backend health check
+
+```bash
+curl http://127.0.0.1:4000/health
+```
+
+### Backend tests
+
+```bash
+npm run backend:test
+```

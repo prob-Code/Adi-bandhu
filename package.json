@@ -64,7 +64,9 @@
     "dev": "vite",
     "start": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "backend:start": "node backend/src/server.js",
+    "backend:test": "node --test backend/test/server.test.js"
   },
   "eslintConfig": {
     "extends": [
