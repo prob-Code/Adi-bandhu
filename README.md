@@ -133,3 +133,70 @@ when we go through the app
 
 
 
+
+## 🔌 Backend (Node HTTP)
+
+A lightweight backend is available under `backend/`.
+
+### Run backend
+
+```bash
+npm run backend:start
+```
+
+Default port: `4000` (override with `BACKEND_PORT`).
+
+### Backend health check
+
+```bash
+curl http://127.0.0.1:4000/health
+```
+
+### Backend tests
+
+```bash
+npm run backend:test
+```
+
+## 🤖 Launch Automation
+
+Run one command to validate backend + frontend and smoke-check critical routes before release:
+
+```bash
+npm run automation:launch
+```
+
+This automation command will:
+- run backend tests,
+- build the frontend,
+- boot backend and Vite preview,
+- verify `/`, `/public-map-viewer`, `/auth/login`, `/auth/signup`,
+- verify backend automation status endpoint at `/automation/status`.
+
+## 🛰️ Pattas Verification (ML + Satellite CV API)
+
+Backend endpoint for pattas verification:
+
+```bash
+POST /api/pattas/verify
+```
+
+Sample payload:
+
+```json
+{
+  "claimId": "CLAIM-100",
+  "lat": 23.4,
+  "lng": 87.3,
+  "parcelOverlapScore": 0.9,
+  "documentTextConfidence": 0.8,
+  "imageChangeScore": 0.1
+}
+```
+
+Configurable provider environment variables:
+- `CV_MODEL_PROVIDER` (default: `local-baseline`)
+- `CV_MODEL_VERSION` (default: `v0.1-rule-based`)
+- `SATELLITE_PROVIDER` (default: `mock-imagery`)
+
+This API is production-ready for integration and currently uses a deterministic baseline scoring model that can be replaced with a trained ML model + real satellite provider connectors.
